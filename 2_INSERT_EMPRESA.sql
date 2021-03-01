@@ -1,3 +1,4 @@
+-- Insercion tabla EMPRESA
 insert into empresa (NIF, nombre, direccion, sector) values ('V0147167W', 'Bernier, Cronin and Terry', '09 Dakota Pass', 'Adaptacion infraestructuras');
 insert into empresa (NIF, nombre, direccion, sector) values ('W46295373', 'Wyman, Halvorson and Hermiston', '152 Atwood Park', 'Otros');
 insert into empresa (NIF, nombre, direccion, sector) values ('Q4573539W', 'Marvin Group', '93 Pond Hill', 'Adaptacion infraestructuras');

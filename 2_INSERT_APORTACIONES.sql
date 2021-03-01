@@ -1,3 +1,4 @@
+-- Insercion tabla APORTACIONES
 insert into aportaciones (fecha, sede_ciudad, ayuda_codigo_ayuda, empresa_NIF, cantidad) values ('2021-06-12', 'Madrid', 'AY1', 'W83127485', 37);
 insert into aportaciones (fecha, sede_ciudad, ayuda_codigo_ayuda, empresa_NIF, cantidad) values ('2021-07-04', 'Madrid', 'AY10', 'W4045676W', 35);
 insert into aportaciones (fecha, sede_ciudad, ayuda_codigo_ayuda, empresa_NIF, cantidad) values ('2021-10-16', 'Valencia', 'AY11', 'W0203526U', 13);

@@ -46,8 +46,8 @@ $$
 CALL ComprobarCoincideDisponibilidad();
 
 
-/* Procedimiento2 2:
-Detectar las entradas de recibe_humanitaria incorrectas por no coincidir la disponibilidad del militar y del sanitario
+/* Procedimiento 2:
+Detectar las entradas de recibe_humanitaria por las que el militar recibe ayuda humanitaria sin habearla solicitado
 */
 
 # Tabla para almacenar los resultados del procedimiento
@@ -89,7 +89,8 @@ $$
 # Invocar el procedimiento almacenado
 CALL CoincideHumanitaria();
 
--- Analogo para material
+
+-- Procedimiento 3: analogo a procedimiento 2 pero para recibe_material
 
 CREATE TABLE error_no_solicita_material (id INTEGER primary key AUTO_INCREMENT, err VARCHAR(100), tupla VARCHAR(100));
 
@@ -128,8 +129,8 @@ $$
 CALL CoincideMaterial();
 
 
-/* Procedimiento 3:
-Detectar las entradas de recibe_humanitaria incorrectas por no coincidir la disponibilidad del militar y del sanitario
+/* Procedimiento 4:
+Detectar los militares atendidos a la vez por más de un sanitario dde la misma especialidad
 */
 
 # Tabla para almacenar los resultados

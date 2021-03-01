@@ -1,3 +1,4 @@
+-- Insercion tabla AYUDA
 insert into ayuda (codigo_ayuda, descripcion) values ('AY1', 'silla de ruedas');
 insert into ayuda (codigo_ayuda, descripcion) values ('AY2', 'muletas');
 insert into ayuda (codigo_ayuda, descripcion) values ('AY3', 'protesis pierna izda');

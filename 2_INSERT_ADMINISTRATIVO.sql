@@ -1,3 +1,4 @@
+-- Insercion tabla ADMINISTRATIVO
 insert into administrativo (num_inscripcion, DNI, nombre, primer_apellido, segundo_apellido, fecha_nacimiento, telefono, sexo, sede_ciudad) values ('AD0000000001', '20028443S', 'Rosa', 'Gallandre', 'Stemp', '1964-09-24', '679-094-543', 'Hombre', 'Barcelona');
 insert into administrativo (num_inscripcion, DNI, nombre, primer_apellido, segundo_apellido, fecha_nacimiento, telefono, sexo, sede_ciudad) values ('AD0000000002', '34073169D', 'Elton', 'Shiers', 'Gammie', '1936-07-01', '747-548-796', 'Hombre', 'Madrid');
 insert into administrativo (num_inscripcion, DNI, nombre, primer_apellido, segundo_apellido, fecha_nacimiento, telefono, sexo, sede_ciudad) values ('AD0000000003', '88972725M', 'Graeme', 'Limon', 'Romushkin', '1936-01-11', '758-632-432', 'Mujer', 'Barcelona');

@@ -1,3 +1,4 @@
+-- Insercion tabla DONACIONES
 insert into donaciones (empresa_NIF, fecha, sede_ciudad, cantidad_donada) values ('W9562133W', '2020-08-22', 'Madrid', 288621);
 insert into donaciones (empresa_NIF, fecha, sede_ciudad, cantidad_donada) values ('W2607202W', '2021-11-08', 'Barcelona', 754075);
 insert into donaciones (empresa_NIF, fecha, sede_ciudad, cantidad_donada) values ('W1973736V', '2020-12-02', 'Barcelona', 233418);

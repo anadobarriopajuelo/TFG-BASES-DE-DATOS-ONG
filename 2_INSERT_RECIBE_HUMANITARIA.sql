@@ -1,3 +1,4 @@
+-- Insercion tabla RECIBE_HUMANITARIA
 insert into recibe_humanitaria (militar_num_registro, sanitario_num_inscripcion, fecha_inicio, fecha_fin) values ('MI0000000021', 'SA0000000024', '2021-4-14', '2021-8-6');
 insert into recibe_humanitaria (militar_num_registro, sanitario_num_inscripcion, fecha_inicio, fecha_fin) values ('MI0000000898', 'SA0000000018', '2021-12-14', null);
 insert into recibe_humanitaria (militar_num_registro, sanitario_num_inscripcion, fecha_inicio, fecha_fin) values ('MI0000000809', 'SA0000000002', '2019-8-9', '2020-1-24');

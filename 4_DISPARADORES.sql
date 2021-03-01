@@ -1,43 +1,6 @@
 USE ong;
 
-/* Disparador_1: DELETE
-	- Si se elimina un militar por la razon que sea, hay que liberar al sanitario que le esta atendiendo actualmente
-    - Si ya ha terminado el tratamiento, se deja en la base de datos para estadisticas futuras
-*/
-DELIMITER $$
-CREATE TRIGGER liberarSanitario BEFORE DELETE ON militar FOR EACH ROW
-	BEGIN
-		DELETE FROM recibe_humanitaria WHERE ISNULL(fecha_fin) AND recibe_humanitaria.militar_num_registro = OLD.num_registro;
-    END 
-$$
-
-
-/* Disparador 2: DELETE
-Si se elimina un sanitario, hay que dejar al militar solo con la solicitud, para que le atienda otra persona
-*/
-DELIMITER $$
-CREATE TRIGGER atenderMilitar BEFORE DELETE ON sanitario FOR EACH ROW
-	BEGIN
-		DELETE FROM recibe_humanitaria WHERE ISNULL(fecha_fin) AND recibe_humanitaria.sanitario_num_inscripcion = OLD.num_inscripcion;
-	END
-$$
-
-
-/* Disparador 3: DELETE
-Si se elimina una sede, hay que eliminar todos los usuarios que estan asociadas a ella
-*/
-DELIMITER $$
-CREATE TRIGGER eliminarSede BEFORE DELETE ON sede FOR EACH ROW
-	BEGIN
-		DELETE FROM militar WHERE militar.sede_ciudad = OLD.ciudad;
-        DELETE FROM administrativo WHERE administrativo.sede_ciudad = OLD.ciudad;
-        DELETE FROM sanitario WHERE sanitario.sede_ciudad = OLD.ciudad;
-        DELETE FROM socio WHERE socio.sede_ciudad = OLD.ciudad;
-	END
-$$
-        
-
-/* Disparador 4: INSERT
+/* Disparador 1: INSERT
 Si se inserta una entrada en recibe_humanitaria RH, comprueba:
     - Primero si esta el militar
 		- Si esta el sanitario
@@ -78,7 +41,7 @@ CREATE TRIGGER insertarHumanitaria BEFORE INSERT ON recibe_humanitaria FOR EACH 
 $$
 
 
-/* Disparador 5: INSERT
+/* Disparador 2: INSERT
 Si se inserta una entrada en recibe_material comprueba:
 	- Primero si esta el militar
 		- Si esta la ayuda
@@ -113,7 +76,7 @@ CREATE TRIGGER insertarMaterial BEFORE INSERT ON recibe_material FOR EACH ROW
 $$
     
 
-/* Disparador 6: INSERT
+/* Disparador 3: INSERT
 Si se inserta una entrada en donaciones comprueba:
 	- Primero si esta la empresa
 		- Si esta la sede
@@ -138,7 +101,7 @@ CREATE TRIGGER insertarDonacion BEFORE INSERT ON donaciones FOR EACH ROW
 $$
 
 
-/* Disparador 7: INSERT
+/* Disparador 4: INSERT
 Si se inserta una entrada en aportaciones comprueba:
 	- Primero si esta la empresa
 		- Si esta la sede
@@ -171,12 +134,13 @@ CREATE TRIGGER insertarAportacion BEFORE INSERT ON aportaciones FOR EACH ROW
 $$
 
 
-/* Disparador 8: UPDATE
+/* Disparador 5: UPDATE
 Si un socio quiero aumentar o disminuir su cuota, debera seguir en los limites establecidos.
 Ademas, no podra variar mas de un 10%
 */
 DELIMITER $$
 CREATE TRIGGER actualizarCuota BEFORE UPDATE ON socio FOR EACH ROW
+ IF UPDATE(cuota) THEN
 	BEGIN
 		IF NEW.cuota >= 50 THEN
 			IF NEW.cuota <=200 THEN
@@ -189,11 +153,12 @@ CREATE TRIGGER actualizarCuota BEFORE UPDATE ON socio FOR EACH ROW
 		ELSE
 			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No supera el minimo';
 		END IF;
-	END	
+	END
+ END IF;
 $$   
+drop trigger actualizarCuota;
 
-
-/*Disparador 9: UPDATE
+/*Disparador 6: UPDATE
 Si un militar finaliza el tratamiento, hay que actualizar la fecha_fin de recibe_humanitaria
 */
 DELIMITER $$
@@ -206,3 +171,38 @@ CREATE TRIGGER actualizarFin BEFORE UPDATE ON recibe_humanitaria FOR EACH ROW
 $$
 
 
+/* Disparador 7: DELETE
+	- Si se elimina un militar por la razon que sea, hay que liberar al sanitario que le esta atendiendo actualmente
+    - Si ya ha terminado el tratamiento, se deja en la base de datos para estadisticas futuras
+*/
+DELIMITER $$
+CREATE TRIGGER liberarSanitario BEFORE DELETE ON militar FOR EACH ROW
+	BEGIN
+		DELETE FROM recibe_humanitaria WHERE ISNULL(fecha_fin) AND recibe_humanitaria.militar_num_registro = OLD.num_registro;
+    END 
+$$
+
+
+/* Disparador 8: DELETE
+Si se elimina un sanitario, hay que dejar al militar solo con la solicitud, para que le atienda otra persona
+*/
+DELIMITER $$
+CREATE TRIGGER atenderMilitar BEFORE DELETE ON sanitario FOR EACH ROW
+	BEGIN
+		DELETE FROM recibe_humanitaria WHERE ISNULL(fecha_fin) AND recibe_humanitaria.sanitario_num_inscripcion = OLD.num_inscripcion;
+	END
+$$
+
+
+/* Disparador 9: DELETE
+Si se elimina una sede, hay que eliminar todos los usuarios que estan asociadas a ella
+*/
+DELIMITER $$
+CREATE TRIGGER eliminarSede BEFORE DELETE ON sede FOR EACH ROW
+	BEGIN
+		DELETE FROM militar WHERE militar.sede_ciudad = OLD.ciudad;
+        DELETE FROM administrativo WHERE administrativo.sede_ciudad = OLD.ciudad;
+        DELETE FROM sanitario WHERE sanitario.sede_ciudad = OLD.ciudad;
+        DELETE FROM socio WHERE socio.sede_ciudad = OLD.ciudad;
+	END
+$$

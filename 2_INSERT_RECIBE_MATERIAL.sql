@@ -1,3 +1,4 @@
+-- Insercion tabla RECIBE_MATERIAL
 insert into recibe_material (militar_num_registro, ayuda_codigo_ayuda, fecha, cantidad) values ('MI0000000845', 'AY2', '2021-12-19', 1);
 insert into recibe_material (militar_num_registro, ayuda_codigo_ayuda, fecha, cantidad) values ('MI0000000218', 'AY12', '2021-10-18', 1);
 insert into recibe_material (militar_num_registro, ayuda_codigo_ayuda, fecha, cantidad) values ('MI0000000506', 'AY8', '2019-10-18', 1);
