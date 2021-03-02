@@ -140,7 +140,7 @@ Ademas, no podra variar mas de un 10%
 */
 DELIMITER $$
 CREATE TRIGGER actualizarCuota BEFORE UPDATE ON socio FOR EACH ROW
- IF UPDATE(cuota) THEN
+ IF NEW.cuota <> OLD.cuota THEN
 	BEGIN
 		IF NEW.cuota >= 50 THEN
 			IF NEW.cuota <=200 THEN
@@ -153,23 +153,23 @@ CREATE TRIGGER actualizarCuota BEFORE UPDATE ON socio FOR EACH ROW
 		ELSE
 			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No supera el minimo';
 		END IF;
-	END
+	END;
  END IF;
 $$   
-drop trigger actualizarCuota;
 
 /*Disparador 6: UPDATE
 Si un militar finaliza el tratamiento, hay que actualizar la fecha_fin de recibe_humanitaria
 */
 DELIMITER $$
 CREATE TRIGGER actualizarFin BEFORE UPDATE ON recibe_humanitaria FOR EACH ROW
-	BEGIN
-		IF NOT ISNULL(OLD.fecha_fin) THEN
-			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Fecha de fin ya registrada';
-		END IF;
-	END
+	IF NEW.fecha_fin <> OLD.fecha_fin THEN
+		BEGIN
+			IF NOT ISNULL(OLD.fecha_fin) THEN
+				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Fecha de fin ya registrada';
+			END IF;
+		END;
+	END IF;
 $$
-
 
 /* Disparador 7: DELETE
 	- Si se elimina un militar por la razon que sea, hay que liberar al sanitario que le esta atendiendo actualmente
